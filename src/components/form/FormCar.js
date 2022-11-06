@@ -13,6 +13,9 @@ const FormCar = ({show, handleClose, data, act}) => {
     });
 
     useEffect(() => {
+
+        console.log("LOGGG")
+
         setCar({
             "id": data ? data.id : "",
             "name": data ? data.name : "",
