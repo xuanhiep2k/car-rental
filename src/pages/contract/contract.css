@@ -1,0 +1,28 @@
+.contract {
+    margin: 0 auto;
+    flex: 1;
+    overflow-y: scroll;
+    height: 90vh;
+    width: 1000px;
+}
+
+.name {
+    font-size: 1.7rem;
+}
+
+.info {
+    font-size: 1.2rem;
+}
+
+@media print {
+    .contract {
+        display: block;
+        width: auto;
+        height: 100% !important;
+        overflow: visible;
+    }
+
+    .btn {
+        display: none;
+    }
+}

@@ -1,0 +1,76 @@
+.nav-table {
+    display: flex;
+    align-items: stretch;
+    justify-content: space-between;
+    position: relative;
+    padding: 0 25px;
+    border-bottom: 1px solid #ebedf2;
+    min-height: 60px;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px
+}
+
+.text-manager {
+    display: flex;
+    align-items: center;
+}
+
+.btn-addCustomer {
+    display: flex;
+    align-items: center;
+    align-content: flex-end;
+}
+
+.btn .btn-elevate {
+    transition: all 0.3s ease 0s;
+}
+
+.btn i {
+    align-items: center;
+    padding-right: 0.5rem;
+    vertical-align: middle;
+}
+
+.btn-brand {
+    background-color: #5d78ff !important;
+    border-color: #5d78ff;
+    color: #ffffff;
+}
+
+.btn .btn-brand {
+    background: transparent;
+    outline: none !important;
+    vertical-align: middle;
+    cursor: pointer;
+}
+
+.form-search {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.btn.btn-icon i {
+    padding: 0;
+    margin: 0;
+}
+
+.btn-danger {
+    margin-left: 5px;
+}
+
+.btn-success {
+    margin-right: 5px;
+}
+
+.close:hover {
+    outline: none;
+}
+
+.refresh-page {
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.no-search {
+    color: red;
+}
