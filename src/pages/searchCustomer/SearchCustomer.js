@@ -92,7 +92,7 @@ function SearchCustomer() {
         };
 
         try {
-            const {data} = await axios.get("/api/customer/search", config);
+            const {data} = await axios.get("/api/customer/searchByName", config);
             setCustomers([...data.data.content])
             setTotalPages(data.data.totalPages)
             setTotalElements(data.data.totalElements)

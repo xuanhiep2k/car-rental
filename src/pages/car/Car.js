@@ -186,7 +186,7 @@ function Car() {
                         </tr>
                     ))) :
                     (<tr className="no-search">
-                        <td colSpan="6" className="text-center">
+                        <td colSpan="7" className="text-center">
                             Không có xe tìm thấy
                         </td>
                     </tr>)}

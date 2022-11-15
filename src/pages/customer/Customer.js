@@ -77,7 +77,7 @@ function Customer(props) {
                 "Authorization": "Bearer " + localStorage.getItem("accessToken"),
             },
             params: {
-                "name": key,
+                "key": key,
                 "pageNumber": i - 1,
                 "pageSize": 5,
                 "sortDirection": "ASC",
@@ -136,7 +136,7 @@ function Customer(props) {
             {/*form search customers*/}
             <div className="form-search">
                 <form onSubmit={(e) => paginate(e, 1)} className="input-group mb-3">
-                    <input className="form-control mr-sm-2" type="search" placeholder="Tìm theo tên khách hàng"
+                    <input className="form-control mr-sm-2" type="search" placeholder="Tìm theo họ tên, địa chỉ, số điện thoại khách hàng..."
                            aria-label="Search"
                            onChange={(e) => setKey(e.target.value)} value={key}/>
                     <button className="btn btn-primary my-2 my-sm-0" type="submit">Tìm kiếm</button>
