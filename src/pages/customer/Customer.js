@@ -1,11 +1,8 @@
-import './searchCustomer.css'
 import React, {useEffect, useState} from 'react';
 import axios from "axios";
-import {useNavigate} from 'react-router-dom'
 import FormCustomer from "../../components/form/FormCustomer";
 
-function SearchCustomer() {
-    const navigate = useNavigate();
+function Customer(props) {
     const [customers, setCustomers] = useState([])
     const [customer, setCustomer] = useState({
         "name": "",
@@ -43,16 +40,12 @@ function SearchCustomer() {
         setShowModal(true);
     }
 
-    const handleSearchCar = (e, customer) => {
-        e.preventDefault()
-        navigate("/searchCar", {state: customer})
-    }
-
     useEffect(() => {
         const config = {
             headers: {
                 "Authorization": "Bearer " + localStorage.getItem("accessToken"),
-            }, params: {
+            },
+            params: {
                 "pageNumber": 0,
                 "pageSize": 5,
                 "sortDirection": "ASC",
@@ -78,6 +71,7 @@ function SearchCustomer() {
     const paginate = async (e, i) => {
         e.preventDefault();
         setActive(i)
+
         const config = {
             headers: {
                 "Authorization": "Bearer " + localStorage.getItem("accessToken"),
@@ -102,6 +96,25 @@ function SearchCustomer() {
         }
     }
 
+    const handleDeleteCustomer = async (e, id) => {
+        e.preventDefault();
+
+        const config = {
+            headers: {
+                "Authorization": "Bearer " + localStorage.getItem("accessToken"),
+            }
+        };
+
+        try {
+            await axios.delete("/api/customer/deleteCustomer/" + id, config);
+            alert("Xoá khách hàng thành công")
+            window.location.reload()
+        } catch (error) {
+            setTimeout(() => {
+            }, 5000);
+        }
+    }
+
     return (
         <div className="searchCustomer">
 
@@ -111,7 +124,7 @@ function SearchCustomer() {
             <div className="nav-table">
                 <div className="text-manager">
                     <i className="bi bi-layers"></i>
-                    TÌM KHÁCH HÀNG
+                    QUẢN LÝ KHÁCH HÀNG
                 </div>
                 <div className="btn-addCustomer">
                     <a href="/#" className="btn btn-brand btn-elevate"
@@ -132,6 +145,7 @@ function SearchCustomer() {
                     <i className="bi bi-arrow-clockwise"> Cập nhật</i>
                 </div>
             </div>
+
             {/*Table show list customers*/}
             <table className="table table-bordered table-hover">
                 <thead>
@@ -155,9 +169,13 @@ function SearchCustomer() {
                             <td>{customer.tel}</td>
                             <td>{customer.note}</td>
                             <td>
-                                <a href="/#" className="btn btn-success btn-icon btn-sm" title="Chọn khách hàng"
-                                   onClick={(e) => handleSearchCar(e, customer)}>
-                                    <i className="bi bi-check2"></i>
+                                <a href="/#" className="btn btn-primary btn-icon btn-sm" title="Cập nhật khách hàng"
+                                   onClick={(e) => handleShowModal(e, customer, "update")}>
+                                    <i className="bi bi-pencil-fill"></i>
+                                </a>
+                                <a href="/#" className="btn btn-danger btn-icon btn-sm" title="Xoá khách hàng"
+                                   onClick={(e) => handleDeleteCustomer(e, customer.id)}>
+                                    <i className="bi bi-trash-fill"></i>
                                 </a>
                             </td>
                         </tr>
@@ -167,7 +185,6 @@ function SearchCustomer() {
                             Không có khách hàng tìm thấy
                         </td>
                     </tr>)}
-
                 </tbody>
             </table>
 
@@ -204,4 +221,4 @@ function SearchCustomer() {
     );
 }
 
-export default SearchCustomer;
+export default Customer;

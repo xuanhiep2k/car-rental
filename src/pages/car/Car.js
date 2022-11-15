@@ -14,7 +14,6 @@ function Car() {
     })
     const [totalElements, setTotalElements] = useState("");
     const [totalPages, setTotalPages] = useState("");
-    const [pageNumber, setPageNumber] = useState(1);
     const [active, setActive] = useState(1);
     const number = [];
     const [key, setKey] = useState("")
@@ -32,7 +31,7 @@ function Car() {
                 "Authorization": "Bearer " + localStorage.getItem("accessToken"),
             },
             params: {
-                "pageNumber": pageNumber - 1,
+                "pageNumber": 0,
                 "pageSize": 5,
                 "sortDirection": "ASC",
                 "sortBy": "name"
@@ -52,7 +51,7 @@ function Car() {
             setTimeout(() => {
             }, 5000);
         }
-    }, [pageNumber])
+    }, [])
 
     const handleClose = () => {
         setShowModal(false);
@@ -72,28 +71,35 @@ function Car() {
         setShowModal(true);
     }
 
-    const searchHandler = async (e) => {
+    const paginate = async (e, i) => {
         e.preventDefault();
+        setActive(i)
 
         const config = {
             headers: {
                 "Authorization": "Bearer " + localStorage.getItem("accessToken"),
             },
             params: {
-                "name": key
+                "name": key,
+                "pageNumber": i - 1,
+                "pageSize": 5,
+                "sortDirection": "ASC",
+                "sortBy": "name"
             }
         };
 
         try {
             const {data} = await axios.get("/api/car/searchCarByName", config);
-            setCars(data.data)
+            setCars([...data.data.content])
+            setTotalPages(data.data.totalPages)
+            setTotalElements(data.data.totalElements)
         } catch (error) {
             setTimeout(() => {
             }, 5000);
         }
     }
 
-    const handleDeleteCustomer = async (e, id) => {
+    const handleDeleteCar = async (e, id) => {
         e.preventDefault();
 
         const config = {
@@ -112,39 +118,6 @@ function Car() {
         }
     }
 
-    const paginate = (e, i) => {
-        e.preventDefault()
-
-        setPageNumber(i)
-        setActive(i)
-
-        const config = {
-            headers: {
-                "Authorization": "Bearer " + localStorage.getItem("accessToken"),
-            },
-            params: {
-                "pageNumber": i - 1,
-                "pageSize": 5,
-                "sortDirection": "ASC",
-                "sortBy": "name"
-            }
-        };
-        try {
-            function fetchData() {
-                axios.get("/api/car/getAllCars", config).then(res => {
-                    setCars([...res.data.data.content])
-                    setTotalPages(res.data.data.totalPages)
-                    setTotalElements(res.data.data.totalElements)
-                })
-            }
-
-            fetchData()
-        } catch (error) {
-            setTimeout(() => {
-            }, 5000);
-        }
-    }
-
     return (
         <div className="car">
 
@@ -152,7 +125,10 @@ function Car() {
             <FormCar show={showModal} handleClose={handleClose} data={car} act={act}/>
 
             <div className="nav-table">
-                <div className="text-manager">QUẢN LÝ XE</div>
+                <div className="text-manager">
+                    <i className="bi bi-layers"></i>
+                    QUẢN LÝ XE
+                </div>
                 <div className="btn-addCustomer">
                     <a href="!#" className="btn btn-brand btn-elevate"
                        onClick={(e) => handleShowModal(e, car, "add")}>
@@ -162,7 +138,7 @@ function Car() {
 
             {/*form search customers*/}
             <div className="form-search">
-                <form onSubmit={searchHandler} className="form-inline">
+                <form onSubmit={(e) => paginate(e, 1)} className="input-group mb-3">
                     <input className="form-control mr-sm-2" type="search" placeholder="Tìm theo tên xe"
                            aria-label="Search"
                            onChange={(e) => setKey(e.target.value)} value={key}/>
@@ -174,9 +150,9 @@ function Car() {
             </div>
 
             {/*Table show list cars*/}
-            <table className="table">
+            <table className="table table-bordered table-hover">
                 <thead>
-                <tr>
+                <tr className="table-primary">
                     <th scope="col">#</th>
                     <th scope="col">Tên xe</th>
                     <th scope="col">Biển số</th>
@@ -203,7 +179,7 @@ function Car() {
                                     <i className="bi bi-pencil-fill"></i>
                                 </a>
                                 <a href="/#" className="btn btn-danger btn-icon btn-sm" title="Xoá khách hàng"
-                                   onClick={(e) => handleDeleteCustomer(e, car.id)}>
+                                   onClick={(e) => handleDeleteCar(e, car.id)}>
                                     <i className="bi bi-trash-fill"></i>
                                 </a>
                             </td>

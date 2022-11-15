@@ -10,11 +10,6 @@
     border-top-right-radius: 4px
 }
 
-.text-manager {
-    display: flex;
-    align-items: center;
-}
-
 .btn-addCustomer {
     display: flex;
     align-items: center;
@@ -102,4 +97,9 @@ span.input-group-addon {
     height: 40px;
     display: flex;
     align-items: center;
+}
+
+.input-group {
+    flex-wrap: nowrap !important;
+    /*justify-content: space-between;*/
 }

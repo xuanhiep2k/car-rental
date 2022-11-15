@@ -5,7 +5,6 @@ import {useLocation, useNavigate} from 'react-router-dom';
 import {Button, Form, Modal} from "react-bootstrap";
 import DatePicker from "react-datepicker";
 import axios from "axios";
-import data from "bootstrap/js/src/dom/data";
 
 function SearchCar() {
     const location = useLocation();

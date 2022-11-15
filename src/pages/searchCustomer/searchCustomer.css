@@ -13,6 +13,7 @@
 .text-manager {
     display: flex;
     align-items: center;
+    font-size: 1.5rem;
 }
 
 .btn-addCustomer {
@@ -49,17 +50,8 @@
     margin-bottom: 10px;
 }
 
-.btn.btn-icon i {
-    padding: 0;
-    margin: 0;
-}
-
 .btn-danger {
     margin-left: 5px;
-}
-
-.btn-success {
-    margin-right: 5px;
 }
 
 .close:hover {

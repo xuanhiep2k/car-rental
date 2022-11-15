@@ -63,7 +63,10 @@ function ChooseCar() {
     return (
         <div className="choose-car" id="contract">
             <div className="nav-table">
-                <div className="text-manager">CHỌN XE ĐỂ THUÊ</div>
+                <div className="text-manager">
+                    <i className="bi bi-layers"></i>
+                    CHỌN XE ĐỂ THUÊ
+                </div>
                 <div className="btn-addCustomer">
                     <a href="/#" className="btn btn-brand btn-elevate">
                         <i className="bi bi-plus"></i>Thêm mới</a>
@@ -71,48 +74,49 @@ function ChooseCar() {
             </div>
 
             <div className="form-search">
-                <form onSubmit={searchHandler} className="form-inline">
-                    <div>
-                        <label htmlFor="">Tên xe</label>
-                        <span className="input-group-addon">
-                            <i className="bi bi-search"></i>
-                        </span>
-                        <input style={{"paddingLeft": "32px"}} className="form-control mr-sm-2" type="search"
-                               placeholder="Tìm theo tên xe"
-                               aria-label="Search"
-                               defaultValue={name}
-                               onChange={(e) => setName(e.target.value)}/>
+                <form onSubmit={searchHandler}>
+                    <div className="input-group">
+                        <div className="m-1">
+                            <label htmlFor="">Tên xe</label>
+                            <span className="input-group-addon">
+                                <i className="bi bi-search"></i>
+                            </span>
+                            <input style={{"paddingLeft": "32px"}} className="form-control mr-sm-2" type="search"
+                                   placeholder="Tìm theo tên xe"
+                                   aria-label="Search"
+                                   defaultValue={name}
+                                   onChange={(e) => setName(e.target.value)}/>
+                        </div>
 
-                    </div>
-                    <div>
-                        <label htmlFor="">Biển số</label>
-                        <input className="form-control mr-sm-2" type="search" placeholder="Tìm theo biển số"
-                               aria-label="Search"
-                               onChange={(e) => setLicense(e.target.value)}/>
-                    </div>
+                        <div className="m-1">
+                            <label htmlFor="">Biển số</label>
+                            <input className="form-control mr-sm-2" type="search" placeholder="Tìm theo biển số"
+                                   aria-label="Search"
+                                   onChange={(e) => setLicense(e.target.value)}/>
+                        </div>
 
-                    <div>
-                        <label htmlFor="">Mẫu xe</label>
-                        <input className="form-control mr-sm-2" type="search" placeholder="Tìm theo mẫu xe"
-                               aria-label="Search"
-                               onChange={(e) => setModel(e.target.value)}/>
-                    </div>
-                    <div>
-                        <label htmlFor="">Loại xe</label>
-                        <input className="form-control mr-sm-2" type="search" placeholder="Tìm theo loại xe"
-                               aria-label="Search"
-                               onChange={(e) => setType(e.target.value)}/>
-                    </div>
+                        <div className="m-1">
+                            <label htmlFor="">Mẫu xe</label>
+                            <input className="form-control mr-sm-2" type="search" placeholder="Tìm theo mẫu xe"
+                                   aria-label="Search"
+                                   onChange={(e) => setModel(e.target.value)}/>
+                        </div>
+                        <div className="m-1">
+                            <label htmlFor="">Loại xe</label>
+                            <input className="form-control mr-sm-2" type="search" placeholder="Tìm theo loại xe"
+                                   aria-label="Search"
+                                   onChange={(e) => setType(e.target.value)}/>
+                        </div>
 
-                    <div style={{"display": "flex"}}>
-                        <div>
+                        <div className="m-1">
                             <label htmlFor="">Nhập ngày bắt đầu:</label>
                             <DatePicker className="form-control mr-sm-2"
                                         selected={startDate}
                                         onChange={(date: Date) => setStartDate(date)}
                                         dateFormat="yyyy-MM-dd"/>
                         </div>
-                        <div>
+
+                        <div className="m-1">
                             <label htmlFor="">Nhập ngày kết thúc:</label>
                             <DatePicker className="form-control mr-sm-2"
                                         selected={endDate}
@@ -120,10 +124,11 @@ function ChooseCar() {
                                         minDate={startDate}
                                         dateFormat="yyyy-MM-dd"/>
                         </div>
-
+                    </div>
+                    <div className="m-1">
+                        <button className="btn btn-primary" type="submit">Tìm kiếm</button>
                     </div>
 
-                    <button className="btn btn-primary mt-2" type="submit">Tìm kiếm</button>
                 </form>
                 <div className="nav-mix">
                     <div className="back-page" onClick={() => navigate("/searchCustomer")}>
@@ -137,9 +142,9 @@ function ChooseCar() {
 
             </div>
             {/*Table show list cars*/}
-            <table className="table">
+            <table className="table table-bordered table-hover">
                 <thead>
-                <tr>
+                <tr className="table-primary">
                     <th scope="col">#</th>
                     <th scope="col">Tên xe</th>
                     <th scope="col">Biển số</th>
